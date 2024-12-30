@@ -4,6 +4,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: Arial, sans-serif;
   min-height: 100vh;
@@ -13,24 +14,22 @@ body {
 
 /* ===== HEADER & LAYOUT ===== */
 header {
-  background-color: #000000; /* 변경된 헤더 배경색 */
-  color: #ffffff;            /* 헤더 내부 기본 텍스트 색상 */
+  background-color: #000000; /* header background color */
+  color: #ffffff;            /* header text color */
   padding: 10px 20px;
   display: flex;
   flex-wrap: wrap; /* allows wrapping on smaller screens */
   gap: 20px;
   align-items: center;
-
-  /* 헤더 폰트만 Noto Serif로 지정 */
-  font-family: 'Noto Serif', serif;
+  font-family: 'Noto Serif', serif; /* header font */
 }
 
 header img {
-  height: 120px;
+  height: 90px; /* reduce logo size, adjust as desired */
   margin-right: 20px;
 }
 
-/* 버튼/인풋처럼 부모 color를 자동 상속 안 하는 요소에 직접 지정 */
+/* Make sure button/input text are white as well */
 #stopwatch-container button,
 #timer-container button,
 #timerInput {
@@ -38,17 +37,21 @@ header img {
   background-color: transparent;
 }
 
-/* ===== STOPWATCH & TIMER LAYOUT ===== */
-#stopwatch-container, #timer-container {
+/* STOPWATCH & TIMER */
+#stopwatch-container,
+#timer-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-#stopwatch, #timer {
+
+#stopwatch, 
+#timer {
   display: flex;
   align-items: center;
   margin-top: 6px;
 }
+
 #stopwatch span,
 #timer span {
   font-size: 1.2rem;
@@ -56,6 +59,7 @@ header img {
   text-align: center;
   margin-right: 10px;
 }
+
 #stopwatch button,
 #timer button {
   margin-right: 5px;
@@ -63,6 +67,7 @@ header img {
   font-size: 0.9rem;
   cursor: pointer;
 }
+
 #timerInput {
   width: 60px;
   margin-top: 4px;
@@ -75,27 +80,42 @@ main {
   flex-direction: column;
   margin: 20px;
 }
+
+/* Text Editor for answer */
 textarea {
   flex: 1;
   width: 100%;
   padding: 10px;
   font-size: 1rem;
   resize: vertical; /* allow vertical resizing only */
+  min-height: 200px; /* ensure the box isn't too small */
 }
+
 #wordCount {
   margin-top: 10px;
   font-weight: bold;
 }
 
+/* Editable Essay Question */
 #essay-question {
-  margin-bottom: 20px;      /* space between the question and the textarea */
+  margin-bottom: 20px; 
 }
 
 #essay-question h2 {
-  margin-bottom: 8px;       /* smaller gap */
+  margin-bottom: 8px;
 }
 
 #essay-question p {
-  margin: 4px 0;            /* adjust spacing of paragraphs */
-  line-height: 1.5;         /* nicer line spacing */
+  margin: 4px 0;
+  line-height: 1.5;
+}
+
+#questionPrompt {
+  /* Make it look like normal text (no border/background) */
+  outline: none;
+  border: none;
+  background: transparent;
+  margin: 6px 0;
+  line-height: 1.5;
+  font-size: 1rem;
 }
