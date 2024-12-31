@@ -62,9 +62,9 @@ const timerStartBtn = document.getElementById("timerStartBtn");
 const timerPauseBtn = document.getElementById("timerPauseBtn");
 const timerResetBtn = document.getElementById("timerResetBtn");
 
-let timerTotalMs = 0;
+let timerTotalMs = 0;     
 let timerIntervalId = null;
-let timeRemaining = 0;
+let timeRemaining = 0;   
 let timerIsRunning = false;
 
 function displayTimer(ms) {
@@ -97,10 +97,9 @@ function updateTimer() {
 
 timerStartBtn.addEventListener("click", () => {
   if (!timerIsRunning) {
-    // Initialize the timer if it hasn't started yet
     if (!timerIntervalId) {
       let minutesToCount = parseInt(timerInput.value, 10) || 0;
-      timerTotalMs = minutesToCount * 60 * 1000;  
+      timerTotalMs = minutesToCount * 60 * 1000;
       timeRemaining = timerTotalMs;
     }
     timerIsRunning = true;
@@ -127,10 +126,9 @@ timerResetBtn.addEventListener("click", () => {
   displayTimer(timeRemaining);
 });
 
-// Initialize display on load
-displayStopwatch(); 
-displayTimer(0);
-
+// Initialize display
+displayStopwatch();  // for stopwatch
+displayTimer(0);     // for countdown timer
 
 /*******************************************
   TEXT EDITOR WORD COUNT
