@@ -21,7 +21,7 @@ header {
   flex-wrap: wrap; /* allows wrapping on smaller screens */
   gap: 20px;
   align-items: center;
-  font-family: 'Noto Serif', serif; /* header font */
+  font-family: Arial; /* header font */
 }
 
 header img {
