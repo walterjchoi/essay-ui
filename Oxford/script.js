@@ -10,7 +10,7 @@
 
   <!-- HEADER -->
   <header>
-    <img src="https://i.imgur.com/xW2ulG6.png" alt="My Logo" />
+    <img src="https://i.imgur.com/YFev882.png" alt="My Logo" />
     
     <!-- STOPWATCH SECTION -->
     <div id="stopwatch-container">
