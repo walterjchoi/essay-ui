@@ -1,121 +1,143 @@
-/* ===== RESET & BASIC STYLES ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/*******************************************
+  STOPWATCH FUNCTIONALITY
+********************************************/
+const stopwatchDisplay = document.getElementById("stopwatchDisplay");
+const stopwatchStartBtn = document.getElementById("stopwatchStartBtn");
+const stopwatchStopBtn = document.getElementById("stopwatchStopBtn");
+const stopwatchResetBtn = document.getElementById("stopwatchResetBtn");
+
+let stopwatchElapsedTime = 0;  // total elapsed time in ms
+let stopwatchIntervalId = null;
+let stopwatchStartTime = 0;
+
+function updateStopwatch() {
+  const currentTime = Date.now();
+  stopwatchElapsedTime = currentTime - stopwatchStartTime;
+  displayStopwatch();
 }
 
-body {
-  font-family: Arial, sans-serif;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+function displayStopwatch() {
+  let totalSeconds = Math.floor(stopwatchElapsedTime / 1000);
+  let hours   = Math.floor(totalSeconds / 3600);
+  let minutes = Math.floor((totalSeconds % 3600) / 60);
+  let seconds = totalSeconds % 60;
+
+  // Format with leading zeros
+  hours   = hours < 10 ? "0" + hours : hours;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  seconds = seconds < 10 ? "0" + seconds : seconds;
+
+  stopwatchDisplay.textContent = `${hours}:${minutes}:${seconds}`;
 }
 
-/* ===== HEADER & LAYOUT ===== */
-header {
-  background-color: #002147; /* header background color */
-  color: #ffffff;            /* header text color */
-  padding: 10px 20px;
-  display: flex;
-  flex-wrap: wrap; /* allows wrapping on smaller screens */
-  gap: 20px;
-  align-items: center;
-  font-family: 'Noto Serif', serif; /* header font */
+stopwatchStartBtn.addEventListener("click", () => {
+  if (!stopwatchIntervalId) {
+    // If it's not already running
+    stopwatchStartTime = Date.now() - stopwatchElapsedTime;
+    stopwatchIntervalId = setInterval(updateStopwatch, 1000);
+  }
+});
+
+stopwatchStopBtn.addEventListener("click", () => {
+  if (stopwatchIntervalId) {
+    clearInterval(stopwatchIntervalId);
+    stopwatchIntervalId = null;
+  }
+});
+
+stopwatchResetBtn.addEventListener("click", () => {
+  clearInterval(stopwatchIntervalId);
+  stopwatchIntervalId = null;
+  stopwatchElapsedTime = 0;
+  displayStopwatch();
+});
+
+
+/*******************************************
+  TIMER (COUNTDOWN) FUNCTIONALITY
+********************************************/
+const timerDisplay = document.getElementById("timerDisplay");
+const timerInput = document.getElementById("timerInput");
+const timerStartBtn = document.getElementById("timerStartBtn");
+const timerPauseBtn = document.getElementById("timerPauseBtn");
+const timerResetBtn = document.getElementById("timerResetBtn");
+
+let timerTotalMs = 0;     
+let timerIntervalId = null;
+let timeRemaining = 0;   
+let timerIsRunning = false;
+
+function displayTimer(ms) {
+  let totalSeconds = Math.floor(ms / 1000);
+  let hours   = Math.floor(totalSeconds / 3600);
+  let minutes = Math.floor((totalSeconds % 3600) / 60);
+  let seconds = totalSeconds % 60;
+
+  hours   = hours < 10 ? "0" + hours : hours;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  seconds = seconds < 10 ? "0" + seconds : seconds;
+
+  timerDisplay.textContent = `${hours}:${minutes}:${seconds}`;
 }
 
-header img {
-  height: 90px; /* reduce logo size, adjust as desired */
-  margin-right: 20px;
+function updateTimer() {
+  timeRemaining -= 1000;
+  
+  if (timeRemaining <= 0) {
+    clearInterval(timerIntervalId);
+    timerIntervalId = null;
+    timerIsRunning = false;
+    timeRemaining = 0;
+    displayTimer(timeRemaining);
+    alert("Time’s up!");
+  } else {
+    displayTimer(timeRemaining);
+  }
 }
 
-/* Make sure button/input text are white as well */
-#stopwatch-container button,
-#timer-container button,
-#timerInput {
-  color: #ffffff;
-  background-color: transparent;
-}
+timerStartBtn.addEventListener("click", () => {
+  if (!timerIsRunning) {
+    if (!timerIntervalId) {
+      let minutesToCount = parseInt(timerInput.value, 10) || 0;
+      timerTotalMs = minutesToCount * 60 * 1000;
+      timeRemaining = timerTotalMs;
+    }
+    timerIsRunning = true;
+    timerIntervalId = setInterval(updateTimer, 1000);
+  }
+});
 
-/* STOPWATCH & TIMER */
-#stopwatch-container,
-#timer-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
+timerPauseBtn.addEventListener("click", () => {
+  if (timerIsRunning) {
+    clearInterval(timerIntervalId);
+    timerIsRunning = false;
+    timerIntervalId = null;
+  }
+});
 
-#stopwatch, 
-#timer {
-  display: flex;
-  align-items: center;
-  margin-top: 6px;
-}
+timerResetBtn.addEventListener("click", () => {
+  clearInterval(timerIntervalId);
+  timerIntervalId = null;
+  timerIsRunning = false;
+  
+  let minutesToCount = parseInt(timerInput.value, 10) || 0;
+  timerTotalMs = minutesToCount * 60 * 1000;
+  timeRemaining = timerTotalMs;
+  displayTimer(timeRemaining);
+});
 
-#stopwatch span,
-#timer span {
-  font-size: 1.2rem;
-  width: 100px;
-  text-align: center;
-  margin-right: 10px;
-}
+// Initialize display
+displayStopwatch();  // for stopwatch
+displayTimer(0);     // for countdown timer
 
-#stopwatch button,
-#timer button {
-  margin-right: 5px;
-  padding: 6px 10px;
-  font-size: 0.9rem;
-  cursor: pointer;
-}
+/*******************************************
+  TEXT EDITOR WORD COUNT
+********************************************/
+const editor = document.getElementById("editor");
+const wordCountEl = document.getElementById("wordCount");
 
-#timerInput {
-  width: 60px;
-  margin-top: 4px;
-}
-
-/* ===== MAIN CONTENT ===== */
-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  margin: 20px;
-}
-
-/* Text Editor for answer */
-textarea {
-  flex: 1;
-  width: 100%;
-  padding: 10px;
-  font-size: 1rem;
-  resize: vertical; /* allow vertical resizing only */
-  min-height: 200px; /* ensure the box isn't too small */
-}
-
-#wordCount {
-  margin-top: 10px;
-  font-weight: bold;
-}
-
-/* Editable Essay Question */
-#essay-question {
-  margin-bottom: 20px; 
-}
-
-#essay-question h2 {
-  margin-bottom: 8px;
-}
-
-#essay-question p {
-  margin: 4px 0;
-  line-height: 1.5;
-}
-
-#questionPrompt {
-  /* Make it look like normal text (no border/background) */
-  outline: none;
-  border: none;
-  background: transparent;
-  margin: 6px 0;
-  line-height: 1.5;
-  font-size: 1rem;
-}
+editor.addEventListener("input", () => {
+  const text = editor.value.trim();
+  const words = text.split(/\s+/).filter(word => word.length > 0);
+  wordCountEl.textContent = `Word Count: ${words.length}`;
+});
