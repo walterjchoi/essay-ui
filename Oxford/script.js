@@ -31,8 +31,9 @@ function displayStopwatch() {
 }
 
 stopwatchStartBtn.addEventListener("click", () => {
+  // Only start if not already running
   if (!stopwatchIntervalId) {
-    // If it's not already running
+    // Capture the start time minus what’s already elapsed
     stopwatchStartTime = Date.now() - stopwatchElapsedTime;
     stopwatchIntervalId = setInterval(updateStopwatch, 1000);
   }
@@ -73,6 +74,7 @@ function displayTimer(ms) {
   let minutes = Math.floor((totalSeconds % 3600) / 60);
   let seconds = totalSeconds % 60;
 
+  // Format with leading zeros
   hours   = hours < 10 ? "0" + hours : hours;
   minutes = minutes < 10 ? "0" + minutes : minutes;
   seconds = seconds < 10 ? "0" + seconds : seconds;
@@ -95,9 +97,10 @@ function updateTimer() {
   }
 }
 
+// START button: Only reset time if it hasn't started or has reached 0
 timerStartBtn.addEventListener("click", () => {
   if (!timerIsRunning) {
-    if (!timerIntervalId) {
+    if (!timerIntervalId && timeRemaining <= 0) {
       let minutesToCount = parseInt(timerInput.value, 10) || 0;
       timerTotalMs = minutesToCount * 60 * 1000;
       timeRemaining = timerTotalMs;
@@ -107,14 +110,16 @@ timerStartBtn.addEventListener("click", () => {
   }
 });
 
+// PAUSE button: Stop countdown but keep remaining time
 timerPauseBtn.addEventListener("click", () => {
   if (timerIsRunning) {
     clearInterval(timerIntervalId);
-    timerIsRunning = false;
     timerIntervalId = null;
+    timerIsRunning = false;
   }
 });
 
+// RESET button: Stop everything and set back to user’s input value
 timerResetBtn.addEventListener("click", () => {
   clearInterval(timerIntervalId);
   timerIntervalId = null;
@@ -126,9 +131,10 @@ timerResetBtn.addEventListener("click", () => {
   displayTimer(timeRemaining);
 });
 
-// Initialize display
+// Initialize displays
 displayStopwatch();  // for stopwatch
 displayTimer(0);     // for countdown timer
+
 
 /*******************************************
   TEXT EDITOR WORD COUNT
@@ -141,3 +147,4 @@ editor.addEventListener("input", () => {
   const words = text.split(/\s+/).filter(word => word.length > 0);
   wordCountEl.textContent = `Word Count: ${words.length}`;
 });
+
