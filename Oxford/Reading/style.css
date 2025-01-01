@@ -12,16 +12,23 @@ body {
   flex-direction: column;
 }
 
-/* ===== HEADER ===== */
+/* ===== HEADER (Fixed) ===== */
 header {
   background-color: #002147; /* header background color */
   color: #ffffff;            /* header text color */
   padding: 10px 20px;
   display: flex;
-  flex-wrap: wrap; /* allows wrapping on smaller screens */
+  flex-wrap: wrap; 
   gap: 20px;
-  align-items: flex-start; /* so timers align at the top */
-  font-family: 'Noto Serif', serif; /* header font (if you like) */
+  align-items: flex-start; 
+  font-family: 'Noto Serif', serif;
+
+  /* FIXED POSITION */
+  position: fixed; 
+  top: 0; 
+  left: 0;
+  width: 100%;
+  z-index: 999;  /* ensures header stays on top of other elements */
 }
 
 header img {
@@ -76,10 +83,14 @@ header img {
 
 /* ===== MAIN CONTENT: TWO COLUMNS ===== */
 main {
+  /* PUSH DOWN CONTENT so it's not hidden behind the fixed header */
+  margin-top: 130px; 
   flex: 1;
   display: flex;
   flex-direction: column;
   margin: 20px;
+  /* Note: The above 'margin: 20px' also includes top, 
+     so effectively it's margin: 130px 20px 20px 20px total */
 }
 
 .columns {
