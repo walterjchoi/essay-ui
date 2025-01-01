@@ -87,7 +87,7 @@ header img {
 /* ===== MAIN CONTENT ===== */
 main {
   /* push content below fixed header height */
-  padding-top: 150px; 
+  padding-top: 130px; 
   /* allow main to fill the rest of the screen */
   flex: 1;
   display: flex;
