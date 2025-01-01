@@ -128,3 +128,24 @@ timerResetBtn.addEventListener("click", () => {
 // Initialize displays
 displayStopwatch();  // for stopwatch
 displayTimer(0);     // for countdown timer
+
+const leftEditor = document.getElementById('leftEditor');
+const rightEditor = document.getElementById('rightEditor');
+
+// Function to force plain text on paste
+function forcePlainTextOnPaste(editor) {
+  editor.addEventListener('paste', (e) => {
+    e.preventDefault(); // Stop the default paste that might include formatting
+
+    // Get plain text from the clipboard
+    const text = (e.clipboardData || window.clipboardData).getData('text');
+
+    // Insert plain text using document.execCommand (legacy but widely supported)
+    document.execCommand('insertText', false, text);
+  });
+}
+
+// Apply to each contenteditable
+forcePlainTextOnPaste(leftEditor);
+forcePlainTextOnPaste(rightEditor);
+
