@@ -1,0 +1,119 @@
+/* ===== RESET & BASIC STYLES ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== HEADER ===== */
+header {
+  background-color: #002147; /* header background color */
+  color: #ffffff;            /* header text color */
+  padding: 10px 20px;
+  display: flex;
+  flex-wrap: wrap; /* allows wrapping on smaller screens */
+  gap: 20px;
+  align-items: flex-start; /* so timers align at the top */
+  font-family: 'Noto Serif', serif; /* header font (if you like) */
+}
+
+header img {
+  height: 80px; /* adjust as needed */
+  margin-right: 20px;
+}
+
+/* Make sure button/input text are white as well */
+#stopwatch-container button,
+#timer-container button,
+#timerInput {
+  color: #ffffff;
+  background-color: transparent;
+  border: 1px solid #fff; /* optional: visible border on inputs/buttons */
+}
+
+/* Stopwatch & Timer containers */
+#stopwatch-container,
+#timer-container {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+#stopwatch,
+#timer {
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+}
+
+#stopwatch span,
+#timer span {
+  font-size: 1rem;
+  width: 80px;
+  text-align: center;
+  margin-right: 10px;
+}
+
+#stopwatch button,
+#timer button {
+  margin-right: 5px;
+  padding: 4px 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+#timerInput {
+  width: 60px;
+  margin-top: 4px;
+}
+
+/* ===== MAIN CONTENT: TWO COLUMNS ===== */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+}
+
+.columns {
+  display: flex;  /* side-by-side columns */
+  flex: 1;
+}
+
+/* Left Column (Reading passage) */
+.left-column {
+  flex: 1;
+  padding: 20px;
+  border-right: 2px solid #ccc; /* vertical dividing line */
+}
+
+/* Right Column (Reading questions) */
+.right-column {
+  flex: 1;
+  padding: 20px;
+}
+
+/* Headings in columns */
+.left-column h3,
+.right-column h3 {
+  margin-bottom: 10px;
+}
+
+/* Editable areas: remove outlines or borders */
+#leftEditor,
+#rightEditor {
+  outline: none;
+  border: none;
+  background: none;
+  min-height: 300px;  /* ensure there's space to type */
+  line-height: 1.5;
+  font-size: 1rem;
+  margin: 10px 0;
+}
